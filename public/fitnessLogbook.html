@@ -15,7 +15,39 @@
       <h1>Logbook</h1>
     </header>
     <main>
-      <p>ptagggg</p>
+      <!-- Diary View -->
+      <section>
+        <!-- Diary -->
+        <section id="diaryView"> 
+          <nav id="dateNav">
+            <button class="dateBtn" id="previousDay">&lt</button>
+            <button class="dateBtn" id="currentDay">
+              <span id="dateReference">Today: </span>
+              <span id="Day">Sunday</span><span>,</span>
+              <span id="date">January 1</span><span id="dateSuffix">st</span>
+            </button>
+            <button class="dateBtn" id="nextDay">&gt</button>
+          </nav>
+
+          <section id="log">
+            <h2><label for="workoutName">Workout: </label><span id="workoutName">Chest</span></h2>
+            <ol id="exerciseList">
+              <li>
+                <h3>(Exercise 1)</h3>
+                <ol id="setsList">
+                  <li>
+                    <span id="weight"></span><span id="weightUnits"></span>
+                    <span id="reps"></span><span id="repUnits"></span>
+                    <span id="notes"></span>
+                  </li>
+                </ol>
+                <button id="newSet">+</button>
+              </li>
+            </ol>
+            <button id="newExercise">+</button>
+          </section>
+        </section>
+      </section>
     </main>
   </body>
 </html>
