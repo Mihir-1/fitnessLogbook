@@ -17,7 +17,14 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(multer().none());
 
-app.get('/logbook/')
+app.get('/logbook/data', async function(req, res) {
+  try {
+
+  } catch (err) {
+    res.status(500);
+    res.text('Error.');
+  }
+})
 
 /**
  * Establishes a database connection to the database and returns the database object.
@@ -32,6 +39,6 @@ app.get('/logbook/')
   return db;
 }
 
-app.use(express.static("public"));
+app.use(express.static('public'));
 const PORT = process.env.PORT || 8000;
 app.listen(PORT);
