@@ -19,7 +19,8 @@ app.use(multer().none());
 
 app.get('/logbook/data', async function(req, res) {
   try {
-
+    let db = await getDBConnection();
+    
   } catch (err) {
     res.status(500);
     res.text('Error.');
