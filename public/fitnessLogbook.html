@@ -9,6 +9,7 @@
     <title>Fitness Logbook</title>
     <link rel="stylesheet" href="fitnessLogbook.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="fitnessLogbook.js"></script>
     <script></script>
   </head>
   <body>
@@ -20,13 +21,12 @@
       <section id="diaryView">
         <!-- Diary -->
         <nav id="dateNav">
-          <button class="dateBtn" id="previousDay">&lt</button>
+          <button class="dateBtn" id="prevDayBtn">&lt</button>
           <button class="dateBtn" id="currentDay">
-            <span id="dateReference">Today: </span>
             <span id="day">*Day*</span><span>,</span>
             <span id="date">*Date*</span><span id="dateSuffix"></span>
           </button>
-          <button class="dateBtn" id="nextDay">&gt</button>
+          <button class="dateBtn" id="nextDayBtn">&gt</button>
         </nav>
 
         <section id="log">
