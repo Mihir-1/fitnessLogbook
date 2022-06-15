@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <title>Fitness Logbook</title>
     <link rel="stylesheet" href="fitnessLogbook.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <script></script>
   </head>
   <body>
@@ -16,36 +17,34 @@
     </header>
     <main>
       <!-- Diary View -->
-      <section>
+      <section id="diaryView">
         <!-- Diary -->
-        <section id="diaryView"> 
-          <nav id="dateNav">
-            <button class="dateBtn" id="previousDay">&lt</button>
-            <button class="dateBtn" id="currentDay">
-              <span id="dateReference">Today: </span>
-              <span id="Day">Sunday</span><span>,</span>
-              <span id="date">January 1</span><span id="dateSuffix">st</span>
-            </button>
-            <button class="dateBtn" id="nextDay">&gt</button>
-          </nav>
+        <nav id="dateNav">
+          <button class="dateBtn" id="previousDay">&lt</button>
+          <button class="dateBtn" id="currentDay">
+            <span id="dateReference">Today: </span>
+            <span id="day">*Day*</span><span>,</span>
+            <span id="date">*Date*</span><span id="dateSuffix"></span>
+          </button>
+          <button class="dateBtn" id="nextDay">&gt</button>
+        </nav>
 
-          <section id="log">
-            <h2><label for="workoutName">Workout: </label><span id="workoutName">Chest</span></h2>
-            <ol id="exerciseList">
-              <li>
-                <h3>(Exercise 1)</h3>
-                <ol id="setsList">
-                  <li>
-                    <span id="weight"></span><span id="weightUnits"></span>
-                    <span id="reps"></span><span id="repUnits"></span>
-                    <span id="notes"></span>
-                  </li>
-                </ol>
-                <button id="newSet">+</button>
-              </li>
-            </ol>
-            <button id="newExercise">+</button>
-          </section>
+        <section id="log">
+          <h2><label for="workoutName">Workout: </label><span id="workoutName">*Default*</span></h2>
+          <ol id="exerciseList">
+            <li>
+              <h3>*Default*</h3>
+              <ol id="setsList">
+                <li>
+                  <span id="weight"></span><span id="weightUnits"></span>
+                  <span id="reps"></span><span id="repUnits"></span>
+                  <span id="notes"></span>
+                </li>
+              </ol>
+              <button id="newSet">+</button>
+            </li>
+          </ol>
+          <button id="newExercise">+</button>
         </section>
       </section>
     </main>
