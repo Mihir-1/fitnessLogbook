@@ -17,7 +17,7 @@
     id("prevDayBtn").addEventListener("click", updateDate)
     id("nextDayBtn").addEventListener("click", updateDate)
   }
-  
+
   function dateToday() {
     daysFromPresent = 0;
     setDate();

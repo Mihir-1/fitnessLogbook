@@ -20,7 +20,13 @@ app.use(multer().none());
 app.get('/logbook/data', async function(req, res) {
   try {
     let db = await getDBConnection();
-    
+    let qry = 'SELECT * FROM workouts WHERE id = 1';
+    let results = await db.get(qry);
+    if (results.length !== 0) {
+      res.json(results);
+    } else {
+      res.status(400).type("texet").send("id does not exist")
+    }
   } catch (err) {
     res.status(500);
     res.text('Error.');
