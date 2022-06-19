@@ -36,8 +36,6 @@
   function setDate() {
     let d = new Date();
     d.setDate(d.getDate() + daysFromPresent);
-                        // console.log("dfp:" + daysFromPresent);
-                        // console.log("date:" + d);
     id("day").textContent = days[d.getDay()];
     id("date").textContent = months[d.getMonth()] + " " + (d.getDate());
   }

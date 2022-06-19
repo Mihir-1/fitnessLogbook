@@ -5,6 +5,8 @@
 
 "use strict";
 
+console.log("server started");
+
 const express = require('express');
 const app = express();
 
@@ -25,11 +27,11 @@ app.get('/logbook/data', async function(req, res) {
     if (results.length !== 0) {
       res.json(results);
     } else {
-      res.status(400).type("texet").send("id does not exist")
+      res.status(400).type("text").send("id does not exist")
     }
   } catch (err) {
     res.status(500);
-    res.text('Error.');
+    res.type("text").send('Error.');
   }
 })
 
