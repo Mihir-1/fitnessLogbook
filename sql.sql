@@ -9,7 +9,7 @@
 --   notes TEXT
 -- );
 
-INSERT INTO workouts (workout)
-VALUES ("wkt");
+INSERT INTO workouts (date, workout)
+VALUES ("06-19-2022", "wkt");
 
 -- DROP TABLE workouts;
