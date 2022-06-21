@@ -17,27 +17,58 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(multer().none());
 
+// GET WORKOUT DATA (JSON) GIVEN DATE
 app.get('/logbook/data', async function(req, res) {
   try {
+
+    // Query Param / Input Validation
     let date = req.query.date;
-    if (date) {
-      let db = await getDBConnection();
-      let qry = 'SELECT * FROM workouts WHERE date = ?;';
-      let results = await db.get(qry, [date]);
-      await db.close()
-      res.json(results);
-    } else {
-      res.status(400).type("text").send("Date not included!")
-    }
+    if (!date) {
+      res.status(400).type("text").send("Date not included!");
+    } 
+
+    let db = await getDBConnection();
+    let qry = 'SELECT * FROM workouts WHERE date = ?;';
+    let results = await db.all(qry, [date]);
+    await db.close();
+    res.json(results);
   } catch (err) {
     res.status(500);
     res.type("text").send('Error!');
   }
 })
 
+// POST WORKOUT DATA (JSON) INTO DB AND RETURN ID (JSON)
 app.post('/logbook/input', async function(req, res) {
   try {
-    
+    // JSON Body parameters / Input Validation
+    let date = req.body.date;
+    let workout = req.body.workout;
+    let exercises = req.body.exercises;
+    if (!date) {
+      res.status(400).type("text").send("Date not included!");
+    } else if (!workout) {
+      res.status(400).type("text").send("Workout not included!");
+    } else if (!exercises) {
+      res.status(400).type("text").send("Exercises not included!");
+    }
+
+    // DB input
+    let db = await getDBConnection();
+    for (let exercise in exercises) {
+      for (let set in exercises[exercise]) {
+        let setData = exercises[exercise][set]
+        let update = "INSERT INTO workouts (date, workout, exercise, setN, weight, reps, notes)\
+        VALUES (?, ?, ?, ?, ?, ?, ?);";
+        await db.run(update, [date, workout, exercise, set, setData.weight, setData.reps, setData.notes]);
+      }
+    }
+
+    // get ID's for new rows
+    let qry = 'SELECT id FROM workouts WHERE date = ?;';
+    let results = await db.all(qry, [date]);
+    await db.close();
+    res.type("text").send(results);
   } catch (err) {
     res.status(500);
     res.type("text").send('Error!');

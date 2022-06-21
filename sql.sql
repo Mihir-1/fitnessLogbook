@@ -12,4 +12,5 @@
 INSERT INTO workouts (date, workout)
 VALUES ("06-19-2022", "wkt");
 
+-- DELETE FROM workouts;
 -- DROP TABLE workouts;
