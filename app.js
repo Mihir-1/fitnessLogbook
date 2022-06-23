@@ -53,14 +53,19 @@ app.post('/logbook/input', async function(req, res) {
       res.status(400).type("text").send("Exercises not included!");
     }
 
-    // DB input
     let db = await getDBConnection();
+
+    // CLEAR OLD DATA
+    let del = "DELETE FROM workouts WHERE date = ? AND workout = ?";
+    await db.run(del, [date, workout]);
+
+    // DB input
     for (let exercise in exercises) {
       for (let set in exercises[exercise]) {
-        let setData = exercises[exercise][set]
-        let update = "INSERT INTO workouts (date, workout, exercise, setN, weight, reps, notes)\
-        VALUES (?, ?, ?, ?, ?, ?, ?);";
-        await db.run(update, [date, workout, exercise, set, setData.weight, setData.reps, setData.notes]);
+        let setData = exercises[exercise][set];
+        let update = "INSERT INTO workouts (date, workout, exercise, setN, weight, reps, RPE, notes)\
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        await db.run(update, [date, workout, exercise, set, setData.weight, setData.reps, setData.RPE, setData.notes]);
       }
     }
 

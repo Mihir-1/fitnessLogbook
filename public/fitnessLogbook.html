@@ -28,9 +28,23 @@
           </button>
           <button class="dateBtn" id="nextDayBtn">&gt</button>
         </nav>
+        
+        <!-- Add Workout Menu-->
+        <section id="addWorkoutMenu" class="menu, hidden">
+          <label for="workoutInput">Enter Workout Name:</label>
+          <input type="text" id="workoutInput" name="workoutInput">
+          <button id="nameWorkoutBtn">Add!</button>
+        </section>
+
+        <!-- Add Set Menu-->
+        <section id="addSetMenu" class="menu, hidden">
+          <label for="setInput">Enter Set Name:</label>
+          <input type="text" id="setInput" name="setInput">
+          <button id="addSetBtn">Add!</button>
+        </section>
 
         <section id="log">
-          <h2><label for="workoutName">Workout: </label><span id="workoutName">*Default*</span></h2>
+          <h2><label for="workoutName">Workout: </label><button id="addWorkoutBtn">Add Workout</button></h2>
           <ol id="exerciseList">
             <li>
               <h3>*Default*</h3>
@@ -38,6 +52,7 @@
                 <li>
                   <span id="weight"></span><span id="weightUnits"></span>
                   <span id="reps"></span><span id="repUnits"></span>
+                  <span id="RPE"></span>
                   <span id="notes"></span>
                 </li>
               </ol>

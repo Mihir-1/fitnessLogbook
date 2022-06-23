@@ -39,3 +39,21 @@ h2, h3 {
   padding: 10px 20px;
   /* width: 100px; */
 }
+
+.hidden {
+  display: none !important;
+}
+
+.menu {
+  /* position: relative;
+  display: inline-block;
+  cursor: pointer; */
+  position:absolute;
+  left:-999em;
+  top:150px;
+  width:300px;
+  padding:10px;
+  border:1px solid #000;
+  background:#C8E8FB;
+  list-style:none;
+}
