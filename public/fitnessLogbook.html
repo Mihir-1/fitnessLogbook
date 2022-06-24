@@ -34,19 +34,33 @@
           <label for="workoutInput">Enter Workout Name:</label>
           <input type="text" id="workoutInput" name="workoutInput">
           <button id="nameWorkoutBtn">Add!</button>
+          <button id="cancelNameWorkoutBtn">Cancel</button>
         </section>
 
+        <!-- Add Exercise Menu-->
+        <section id="addExerciseMenu" class="menu, hidden">
+          <label for="exerciseInput">Enter Exercise Name:</label>
+          <input type="text" id="exerciseInput" name="exerciseInput">
+          <button id="addExerciseBtn">Add!</button>
+        </section>
+        
         <!-- Add Set Menu-->
         <section id="addSetMenu" class="menu, hidden">
-          <label for="setInput">Enter Set Name:</label>
-          <input type="text" id="setInput" name="setInput">
+          <label for="weightInput">Enter Weight:</label>
+          <input type="text" id="weightInput" name="weightInput">
+          <label for="repsInput">Enter Reps:</label>
+          <input type="text" id="repsInput" name="repsInput">
+          <label for="rpeInput">Enter RPE:</label>
+          <input type="text" id="rpeInput" name="rpeInput">
+          <label for="notesInput">Enter Notes:</label>
+          <input type="text" id="notesInput" name="notesInput">
           <button id="addSetBtn">Add!</button>
         </section>
 
         <section id="log">
           <h2><label for="workoutName">Workout: </label><button id="addWorkoutBtn">Add Workout</button></h2>
           <ol id="exerciseList">
-            <li>
+            <!-- <li>
               <h3>*Default*</h3>
               <ol id="setsList">
                 <li>
@@ -57,9 +71,9 @@
                 </li>
               </ol>
               <button id="newSet">+</button>
-            </li>
+            </li> -->
           </ol>
-          <button id="newExercise">+</button>
+          <button id="newExerciseBtn" class="disabled">+ Exercise</button>
         </section>
       </section>
     </main>

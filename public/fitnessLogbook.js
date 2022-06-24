@@ -16,19 +16,72 @@
     dateToday();
     id("prevDayBtn").addEventListener("click", updateDate);
     id("nextDayBtn").addEventListener("click", updateDate);
-    id("addWorkoutBtn").addEventListener("click", showAddWorkoutMenu);
+    id("addWorkoutBtn").addEventListener("click", addWorkoutMenu);
+    id("newExerciseBtn").addEventListener("click", newExercise);
   }
 
-  function showAddWorkoutMenu() {
+  function addWorkoutMenu() {
     id("addWorkoutMenu").classList.remove("hidden");
-    id("nameWorkoutBtn").addEventListener("click", hideAddWorkoutMenu);
+    id("cancelNameWorkoutBtn").addEventListener("click", cancelNameWorkout)
+    id("nameWorkoutBtn").addEventListener("click", nameWorkout);
   }
 
-  function hideAddWorkoutMenu() {
-    //console.log(id("workoutInput").value);
+  function nameWorkout() {
     id("addWorkoutBtn").textContent = id("workoutInput").value;
     id("workoutInput").value = "";
     id("addWorkoutMenu").classList.add("hidden");
+  }
+
+  function cancelNameWorkout() {
+    id("workoutInput").value = "";
+    id("addWorkoutMenu").classList.add("hidden");
+  }
+
+  function newExercise() {
+    // Enables add workout button
+    if (id("addWorkoutBtn").textContent !== "Add Workout") {
+      id("newExerciseBtn").classList.remove("disabled");
+    }
+
+    // Name workout required before adding workout
+    if (id("newExerciseBtn").classList.contains("disabled")) {
+      alert("Name Your Workout");
+    } else {
+      id("addExerciseMenu").classList.remove("hidden");
+      id("addExerciseBtn").addEventListener("click", addNewExercise);
+    }
+  }
+
+  function addNewExercise() {
+    let exerciseName = id("exerciseInput").value;
+    let li = gen("li");
+    let exercise = gen("button");
+    exercise.textContent = exerciseName;
+    exercise.classList.add("exercise");
+    //exercise.addEventListener("click", renameExercise)
+
+    let setBtn = gen("button");
+    setBtn.textContent = "+ Set";
+    setBtn.addEventListener("click", newSet)
+
+    let ol = gen("ol");
+
+    li.appendChild(exercise);
+    li.appendChild(setBtn);
+    li.appendChild(ol);
+    id("exerciseList").appendChild(li);
+    id("exerciseInput").value = "";
+    id("addExerciseMenu").classList.add("hidden");
+  }
+
+  function newSet() {
+    let exerciseList = this.parentNode;
+    console.log(exerciseList);
+    let setList = exerciseList.querySelector("ol")
+    console.log(setList);
+    id("addSetMenu").classList.remove("hidden");
+    
+    id("addSetBtn").addEventListener("click", addNewSet);
   }
 
   function updateDate() {
@@ -61,6 +114,25 @@
    */
    function gen(tagName) {
     return document.createElement(tagName);
+  }
+
+  
+  /**
+   * Shortcut function for querySelector and returns dom element
+   * @param {Setring} selector selector for dom element
+   * @returns {Object} DOM Element
+   */
+   function qs(selector) {
+    return document.querySelector(selector);
+  }
+  
+  /**
+   * Shortcut function for querySelectorAll and returns dom element array
+   * @param {String} selector selector for dom element
+   * @returns {Array} DOM Element array
+   */
+   function qsa(selector) {
+    return document.querySelectorAll(selector);
   }
 
   /**
