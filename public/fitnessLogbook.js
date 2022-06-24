@@ -1,4 +1,4 @@
-/**
+33/**
  * Mihir Joshi
  * Javascript
  */
@@ -8,6 +8,7 @@
   const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+  let weightUnits = "lbs"
   let daysFromPresent = 0;
 
   window.addEventListener("load", init);
@@ -65,9 +66,11 @@
     setBtn.addEventListener("click", newSet)
 
     let ol = gen("ol");
+    let setli = gen("li");
 
+    setli.appendChild(setBtn);
+    ol.appendChild(setli);
     li.appendChild(exercise);
-    li.appendChild(setBtn);
     li.appendChild(ol);
     id("exerciseList").appendChild(li);
     id("exerciseInput").value = "";
@@ -75,14 +78,39 @@
   }
 
   function newSet() {
-    let exerciseList = this.parentNode;
-    console.log(exerciseList);
-    let setList = exerciseList.querySelector("ol")
-    console.log(setList);
+    let setList = this.parentNode;
+    //console.log(setList);
     id("addSetMenu").classList.remove("hidden");
-    
     id("addSetBtn").addEventListener("click", addNewSet);
+
+    function addNewSet() {
+      let repsLabel = gen("label");
+      repsLabel.textContent = "reps";
+      let repsSpan = gen("span");
+      repsSpan.textContent = id("repsInput").value;
+      let weightLabel = gen("label");
+      weightLabel.textContent = weightUnits;
+      let weightSpan = gen("span");
+      weightSpan.textContent = id("weightInput").value;
+      let rpeLabel = gen("label");
+      rpeLabel.textContent = "RPE:"
+      let rpeSpan = gen("span");
+      rpeSpan.textContent = id("rpeInput").value;
+      let notesSpan = gen("span");
+      notesSpan.textContent = id("notesInput").value;
+
+      setList.insertBefore(notesSpan, setList.firstChild);
+      setList.insertBefore(rpeLabel, setList.firstChild);
+      setList.insertBefore(rpeSpan, setList.firstChild);
+      setList.insertBefore(weightSpan, setList.firstChild);
+      setList.insertBefore(weightLabel, setList.firstChild);
+      setList.insertBefore(repsSpan, setList.firstChild);
+      setList.insertBefore(repsLabel, setList.firstChild);
+
+      console.log(setList);
+    }
   }
+
 
   function updateDate() {
     console.log(this.id)
@@ -106,7 +134,7 @@
     id("date").textContent = MONTHS[d.getMonth()] + " " + (d.getDate());
   }
 
-  
+
   /**
    * Generates a new element with given tag name
    * @param {String} tagName DOM name of tag
@@ -116,7 +144,7 @@
     return document.createElement(tagName);
   }
 
-  
+
   /**
    * Shortcut function for querySelector and returns dom element
    * @param {Setring} selector selector for dom element
@@ -125,7 +153,7 @@
    function qs(selector) {
     return document.querySelector(selector);
   }
-  
+
   /**
    * Shortcut function for querySelectorAll and returns dom element array
    * @param {String} selector selector for dom element
