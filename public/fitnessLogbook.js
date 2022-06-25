@@ -23,19 +23,24 @@
 
   function addWorkoutMenu() {
     id("addWorkoutMenu").classList.remove("hidden");
-    id("cancelNameWorkoutBtn").addEventListener("click", cancelNameWorkout)
     id("nameWorkoutBtn").addEventListener("click", nameWorkout);
-  }
+    id("cancelNameWorkoutBtn").addEventListener("click", cancelNameWorkout);
 
-  function nameWorkout() {
-    id("addWorkoutBtn").textContent = id("workoutInput").value;
-    id("workoutInput").value = "";
-    id("addWorkoutMenu").classList.add("hidden");
-  }
+    function nameWorkout() {
+      console.log("run");
+      id("addWorkoutBtn").textContent = id("workoutInput").value;
+      id("workoutInput").value = "";
+      id("addWorkoutMenu").classList.add("hidden");
+      id("nameWorkoutBtn").removeEventListener("click", nameWorkout);
+      id("cancelNameWorkoutBtn").removeEventListener("click", cancelNameWorkout);
+    }
 
-  function cancelNameWorkout() {
-    id("workoutInput").value = "";
-    id("addWorkoutMenu").classList.add("hidden");
+    function cancelNameWorkout() {
+      id("workoutInput").value = "";
+      id("addWorkoutMenu").classList.add("hidden");
+      id("cancelNameWorkoutBtn").removeEventListener("click", cancelNameWorkout);
+      id("nameWorkoutBtn").removeEventListener("click", nameWorkout);
+    }
   }
 
   function newExercise() {
@@ -51,39 +56,39 @@
       id("addExerciseMenu").classList.remove("hidden");
       id("addExerciseBtn").addEventListener("click", addNewExercise);
     }
-  }
 
-  function addNewExercise() {
-    let exerciseName = id("exerciseInput").value;
-    let li = gen("li");
-    let exercise = gen("button");
-    exercise.textContent = exerciseName;
-    exercise.classList.add("exercise");
-    //exercise.addEventListener("click", renameExercise)
-
-    let setBtn = gen("button");
-    setBtn.textContent = "+ Set";
-    setBtn.addEventListener("click", newSet)
-
-    let ol = gen("ol");
-    let setli = gen("li");
-
-    setli.appendChild(setBtn);
-    ol.appendChild(setli);
-    li.appendChild(exercise);
-    li.appendChild(ol);
-    id("exerciseList").appendChild(li);
-    id("exerciseInput").value = "";
-    id("addExerciseMenu").classList.add("hidden");
+    function addNewExercise() {
+      let exerciseName = id("exerciseInput").value;
+      let li = gen("li");
+      let exercise = gen("button");
+      exercise.textContent = exerciseName;
+      exercise.classList.add("exercise");
+  
+      let setBtn = gen("button");
+      setBtn.textContent = "+ Set";
+      setBtn.addEventListener("click", newSet)
+  
+      let ol = gen("ol");
+  
+      li.appendChild(exercise);
+      li.appendChild(ol);
+      li.appendChild(setBtn);
+      id("exerciseList").appendChild(li);
+      id("exerciseInput").value = "";
+      id("addExerciseMenu").classList.add("hidden");
+      id("addExerciseBtn").removeEventListener("click", addNewExercise);
+    }
   }
 
   function newSet() {
-    let setList = this.parentNode;
-    //console.log(setList);
+    let setList = this.previousSibling;
+
     id("addSetMenu").classList.remove("hidden");
     id("addSetBtn").addEventListener("click", addNewSet);
 
     function addNewSet() {
+      let curSet = gen("li");
+
       let repsLabel = gen("label");
       repsLabel.textContent = "reps";
       let repsSpan = gen("span");
@@ -99,18 +104,30 @@
       let notesSpan = gen("span");
       notesSpan.textContent = id("notesInput").value;
 
-      setList.insertBefore(notesSpan, setList.firstChild);
-      setList.insertBefore(rpeLabel, setList.firstChild);
-      setList.insertBefore(rpeSpan, setList.firstChild);
-      setList.insertBefore(weightSpan, setList.firstChild);
-      setList.insertBefore(weightLabel, setList.firstChild);
-      setList.insertBefore(repsSpan, setList.firstChild);
-      setList.insertBefore(repsLabel, setList.firstChild);
+      curSet.insertBefore(notesSpan, curSet.firstChild);
+      curSet.insertBefore(rpeSpan, curSet.firstChild);
+      curSet.insertBefore(rpeLabel, curSet.firstChild);
+      curSet.insertBefore(weightLabel, curSet.firstChild);
+      curSet.insertBefore(weightSpan, curSet.firstChild);
+      curSet.insertBefore(repsLabel, curSet.firstChild);
+      curSet.insertBefore(repsSpan, curSet.firstChild);
 
-      console.log(setList);
+      setList.appendChild(curSet);
+
+      id("repsInput").value = "";
+      id("weightInput").value = "";
+      id("rpeInput").value = "";
+      id("notesInput").value = "";
+      id("addSetMenu").classList.add("hidden");
+      id("addSetBtn").removeEventListener("click", addNewSet);
+
+      updateDb();
     }
   }
 
+  function updateDb() {
+    
+  }
 
   function updateDate() {
     console.log(this.id)
@@ -133,7 +150,6 @@
     id("day").textContent = DAYS[d.getDay()];
     id("date").textContent = MONTHS[d.getMonth()] + " " + (d.getDate());
   }
-
 
   /**
    * Generates a new element with given tag name
