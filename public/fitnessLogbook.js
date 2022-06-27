@@ -27,7 +27,6 @@
     id("cancelNameWorkoutBtn").addEventListener("click", cancelNameWorkout);
 
     function nameWorkout() {
-      console.log("run");
       id("addWorkoutBtn").textContent = id("workoutInput").value;
       id("workoutInput").value = "";
       id("addWorkoutMenu").classList.add("hidden");
@@ -82,13 +81,11 @@
 
   function newSet() {
     let setList = this.previousSibling;
-
     id("addSetMenu").classList.remove("hidden");
     id("addSetBtn").addEventListener("click", addNewSet);
 
     function addNewSet() {
       let curSet = gen("li");
-
       let repsLabel = gen("label");
       repsLabel.textContent = "reps";
       let repsSpan = gen("span");
@@ -103,7 +100,6 @@
       rpeSpan.textContent = id("rpeInput").value;
       let notesSpan = gen("span");
       notesSpan.textContent = id("notesInput").value;
-
       curSet.insertBefore(notesSpan, curSet.firstChild);
       curSet.insertBefore(rpeSpan, curSet.firstChild);
       curSet.insertBefore(rpeLabel, curSet.firstChild);
@@ -111,22 +107,46 @@
       curSet.insertBefore(weightSpan, curSet.firstChild);
       curSet.insertBefore(repsLabel, curSet.firstChild);
       curSet.insertBefore(repsSpan, curSet.firstChild);
-
       setList.appendChild(curSet);
-
       id("repsInput").value = "";
       id("weightInput").value = "";
       id("rpeInput").value = "";
       id("notesInput").value = "";
       id("addSetMenu").classList.add("hidden");
       id("addSetBtn").removeEventListener("click", addNewSet);
-
       updateDb();
     }
   }
 
   function updateDb() {
-    
+    let wktData = {};
+    let d = new Date();
+    d.setDate(d.getDate() + daysFromPresent);
+    let date = (d.getMonth() + 1) + "-" + (d.getDate() + 1) + "-" + (d.getFullYear());
+    wktData.date = date;
+    wktData.workout = id("addWorkoutBtn").textContent;
+    wktData.exercises = {};
+    let exercises = qsa("#exerciseList > li > .exercise");
+    for (let i = 0; i < exercises.length; i++) {
+      let exercise = exercises[i].textContent;
+      wktData.exercises[exercise] = {};
+      let sets = exercises[i].nextSibling.querySelectorAll("li");
+      for (let j = 0; j < sets.length; j++) {
+        let set = sets[j];
+        let spans = set.querySelectorAll("span");
+        let setN = j + 1;
+        let reps = spans[0].textContent;
+        let weight = spans[1].textContent;
+        let rpe = spans[2].textContent;
+        let notes = spans[3].textContent;
+        wktData.exercises[exercise][setN] = {};
+        wktData.exercises[exercise][setN].weight = weight;
+        wktData.exercises[exercise][setN].reps = reps;
+        wktData.exercises[exercise][setN].rpe = rpe;
+        wktData.exercises[exercise][setN].notes = notes;
+      }
+    }
+    console.log(wktData);
   }
 
   function updateDate() {
